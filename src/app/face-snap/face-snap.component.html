@@ -1,1 +1,19 @@
-<p>face-snap works!</p>
+<div class="face-snap-card " [ngClass]="{   'snapped': hasSnapped }">
+    <h1>{{ myNumberTest | percent }}</h1>
+    <h1>{{ myPriceTest | currency:'EUR':'code'}}</h1>
+    <h2>{{ faceSnap.title | titlecase }}</h2>
+    @if(faceSnap.location){
+    <h3>Location: {{ faceSnap.location }}</h3>
+    }
+    <img [src]="faceSnap.imageUrl" alt="{{ faceSnap.title}}" />
+    <p>{{ faceSnap.description }}</p>
+    <p>Création: {{ faceSnap.createdAt | date:'medium' }}</p>
+    <p>
+        <button (click)="onSnap()">
+            {{ hasSnapped ? 'UnSnap' : 'Snap' }}
+        </button>
+        <span [ngStyle]="{color: 'rgb(0,'+faceSnap.snaps+',0)'}">👌{{ faceSnap.snaps }}</span>
+    </p>
+
+
+</div>

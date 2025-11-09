@@ -1,21 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FaceSnap } from '../models/face-snap';
+import {
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  LowerCasePipe,
+  NgClass,
+  NgStyle,
+  PercentPipe,
+  TitleCasePipe,
+  UpperCasePipe,
+} from '@angular/common';
 
 @Component({
   selector: 'app-face-snap',
-  imports: [],
+  imports: [
+    NgStyle,
+    NgClass,
+    UpperCasePipe,
+    LowerCasePipe,
+    TitleCasePipe,
+    DatePipe,
+    DecimalPipe,
+    PercentPipe,
+    CurrencyPipe,
+  ],
   templateUrl: './face-snap.component.html',
   styleUrl: './face-snap.component.scss',
 })
-export class FaceSnapComponent implements OnInit {
-  title!: string;
-  description!: string;
-  createdAt!: Date;
-  snaps!: number;
+export class FaceSnapComponent {
+  hasSnapped: boolean = false;
+  userHasSnapped: boolean = false;
+  myNumberTest: number = 0.564;
+  myPriceTest: number = 1999.99;
+  @Input() faceSnap!: FaceSnap;
 
-  ngOnInit(): void {
-    this.title = 'Mon premier FaceSnap';
-    this.description = 'Mon premier FaceSnap, voici une description';
-    this.createdAt = new Date();
-    this.snaps = 0;
+  onSnap(): void {
+    if (this.hasSnapped) {
+      this.faceSnap.onRemoveSnap();
+    } else {
+      this.faceSnap.onAddSnap();
+    }
+    this.hasSnapped = !this.hasSnapped;
   }
 }
